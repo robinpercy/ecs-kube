@@ -1,0 +1,7 @@
+note: ECSDeployment Example
+sample: |
+  apiVersion: ecskube.ecskube/v1alpha1
+  kind: ECSDeployment
+  metadata:
+    name: ecsdeployment-example
+  spec:
