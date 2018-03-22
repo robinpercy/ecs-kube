@@ -1,7 +1,7 @@
 **Warning: This project is in the early stages of prototyping and will be significantly changing over the coming weeks.** 
 
 # Project Goal
-To allow EC2 Container Service Task and Service definitions to be used to deploy Pods and Services within Kubernets.
+To allow EC2 Container Service Task and Service definitions to be used to deploy Pods and Services within Kubernetes.
 
 # Prototype Design
 The preliminary design uses an aggregated extension API to manage a new ECSDeployment resource type.
