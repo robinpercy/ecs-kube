@@ -1,0 +1,187 @@
+
+apiVersion: apiregistration.k8s.io/v1beta1
+kind: APIService
+metadata:
+  name: v1alpha1.ecskube.ecskube
+  labels:
+    api: ecs-kube-apiserver
+    apiserver: "true"
+spec:
+  version: v1alpha1
+  group: ecskube.ecskube
+  groupPriorityMinimum: 2000
+  priority: 200
+  service:
+    name: ecs-kube-apiserver
+    namespace: default
+  versionPriority: 10
+  caBundle: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURZRENDQWtnQ0NRQ2M5SEZkc3JlVkREQU5CZ2txaGtpRzl3MEJBUXNGQURCeU1Rc3dDUVlEVlFRR0V3SjEKYmpFTE1Ba0dBMVVFQ0F3Q2MzUXhDakFJQmdOVkJBY01BV3d4Q2pBSUJnTlZCQW9NQVc4eEN6QUpCZ05WQkFzTQpBbTkxTVRFd0x3WURWUVFERENobFkzTXRhM1ZpWlMxaGNHbHpaWEoyWlhJdFkyVnlkR2xtYVdOaGRHVXRZWFYwCmFHOXlhWFI1TUI0WERURTRNRE15TWpJd016RXhORm9YRFRFNU1ETXlNakl3TXpFeE5Gb3djakVMTUFrR0ExVUUKQmhNQ2RXNHhDekFKQmdOVkJBZ01Bbk4wTVFvd0NBWURWUVFIREFGc01Rb3dDQVlEVlFRS0RBRnZNUXN3Q1FZRApWUVFMREFKdmRURXhNQzhHQTFVRUF3d29aV056TFd0MVltVXRZWEJwYzJWeWRtVnlMV05sY25ScFptbGpZWFJsCkxXRjFkR2h2Y21sMGVUQ0NBU0l3RFFZSktvWklodmNOQVFFQkJRQURnZ0VQQURDQ0FRb0NnZ0VCQU83OVVRTnQKUDluZzhpNk5NRWZHcUZFSkRHL0FMaTM2UHBFRi9peUZVTUVOc2cvVVhudDdCTjU2TlVleHdnKzVZcVV4TzJDNApUa0dGSXFHcm5sc09nVVFNUDhFazJaVW5CVHRKZnBwbmFYYlpweC9TTXdYM0FoNmdPSktRN2s4ZytrOUEvUmovCkFrZVQ4VUhjUStXWXM4N2srelhibmRuOXJjOGVGV2c3WVhVbFQ0enlBVHNSWVRmMVBLYjF1SjF6L28vNVlDVkMKUmY1OTFyU1lvZkJ0OExVczQrS0VXTVdpSTVFcXB0QmN1QnVnbnhXTVllMVdacWRMbzk5TE10aHZjZkJlYllPQwpDbjFWUm5ITFA5NFdSZUozNFlFdG5FSTBFTVNGMWlLN0lZMzNUVmFaWjZlNGZGS1pYQ0phVTkyTFBCclFzZEMvCml6VkYxVjJWTnBkMGtDRUNBd0VBQVRBTkJna3Foa2lHOXcwQkFRc0ZBQU9DQVFFQXRKc0ZwYUM4WjRlSitUOE0KNndFeWg5LzI1a2VkN2JiNHlDZlJXNGljK1BaUG5JNXpDY2psMWs1NlNJNkV3Z3AxTkNRL3JVUGRWTk9BZzlmQQp3NEwrM3JZUGsvRUVBS2ZqbHc4NUJrNkRQUUs2dFExdXVlWjNzQ1hMNEw3aUpjWU9mRmh1ZEpWTkgzSmw2Ukk1CkltR1RUcVdCNFBqMncvSWNiMUhuaTIvTFVicGJxL0NTQmFRR3MwSWpyQXhtMnhRZ0gxeXlqUkxoYzhEQ28ySDcKTDJCbW9yalp0TTlaMXdaQm5TUUxyK0h3Kzc3dVRNOWo2YU1XTm5xbWwzNEZZZisyOTRnQlBoRWMvRk9jcWxlNwpuZHQ1ZzUxUjJ1SGR4YVgrWEJRZ0tNajhMVy9yMzZCYi92ZlBGNWpha0VDdnQrUWJnTFg0bmpEdllaWEJFUUEyCnZxcEVWUT09Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ecs-kube-apiserver
+  namespace: default
+  labels:
+    api: ecs-kube-apiserver
+    apiserver: "true"
+spec:
+  ports:
+  - port: 443
+    protocol: TCP
+    targetPort: 443
+  selector:
+    api: ecs-kube-apiserver
+    apiserver: "true"
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: ecs-kube-apiserver
+  namespace: default
+  labels:
+    api: ecs-kube-apiserver
+    apiserver: "true"
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        api: ecs-kube-apiserver
+        apiserver: "true"
+    spec:
+      containers:
+      - name: apiserver
+        image: robinpercy/ecs-kube:latest
+        volumeMounts:
+        - name: apiserver-certs
+          mountPath: /apiserver.local.config/certificates
+          readOnly: true
+        command:
+        - "./apiserver"
+        args:
+        - "--etcd-servers=http://etcd-svc:2379"
+        - "--tls-cert-file=/apiserver.local.config/certificates/tls.crt"
+        - "--tls-private-key-file=/apiserver.local.config/certificates/tls.key"
+        - "--audit-log-path=-"
+        - "--audit-log-maxage=0"
+        - "--audit-log-maxbackup=0"
+        resources:
+          requests:
+            cpu: 100m
+            memory: 20Mi
+          limits:
+            cpu: 100m
+            memory: 30Mi
+      - name: controller
+        image: robinpercy/ecs-kube:latest
+        command:
+        - "./controller-manager"
+        args:
+        resources:
+          requests:
+            cpu: 100m
+            memory: 20Mi
+          limits:
+            cpu: 100m
+            memory: 30Mi
+      volumes:
+      - name: apiserver-certs
+        secret:
+          secretName: ecs-kube-apiserver
+---
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  name: etcd
+  namespace: default
+spec:
+  serviceName: "etcd"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: etcd
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: etcd
+        image: quay.io/coreos/etcd:latest
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: 100m
+            memory: 20Mi
+          limits:
+            cpu: 100m
+            memory: 30Mi
+        env:
+        - name: ETCD_DATA_DIR
+          value: /etcd-data-dir
+        command:
+        - /usr/local/bin/etcd
+        - --listen-client-urls
+        - http://0.0.0.0:2379
+        - --advertise-client-urls
+        - http://localhost:2379
+        ports:
+        - containerPort: 2379
+        volumeMounts:
+        - name: etcd-data-dir
+          mountPath: /etcd-data-dir
+        readinessProbe:
+          httpGet:
+            port: 2379
+            path: /health
+          failureThreshold: 1
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 2
+        livenessProbe:
+          httpGet:
+            port: 2379
+            path: /health
+          failureThreshold: 3
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 2
+  volumeClaimTemplates:
+  - metadata:
+     name: etcd-data-dir
+     annotations:
+        volume.beta.kubernetes.io/storage-class: standard
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+         storage: 10Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: etcd-svc
+  namespace: default
+  labels:
+    app: etcd
+spec:
+  ports:
+  - port: 2379
+    name: etcd
+    targetPort: 2379
+  selector:
+    app: etcd
+---
+apiVersion: v1
+kind: Secret
+type: kubernetes.io/tls
+metadata:
+  name: ecs-kube-apiserver
+  namespace: default
+  labels:
+    api: ecs-kube-apiserver
+    apiserver: "true"
+data:
+  tls.crt: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURWakNDQWo0Q0NRREZpaVBwelBRZ2lEQU5CZ2txaGtpRzl3MEJBUVVGQURCeU1Rc3dDUVlEVlFRR0V3SjEKYmpFTE1Ba0dBMVVFQ0F3Q2MzUXhDakFJQmdOVkJBY01BV3d4Q2pBSUJnTlZCQW9NQVc4eEN6QUpCZ05WQkFzTQpBbTkxTVRFd0x3WURWUVFERENobFkzTXRhM1ZpWlMxaGNHbHpaWEoyWlhJdFkyVnlkR2xtYVdOaGRHVXRZWFYwCmFHOXlhWFI1TUI0WERURTRNRE15TWpJd016RXhOVm9YRFRFNU1ETXlNakl3TXpFeE5Wb3dhREVMTUFrR0ExVUUKQmhNQ2RXNHhDekFKQmdOVkJBZ01Bbk4wTVFvd0NBWURWUVFIREFGc01Rb3dDQVlEVlFRS0RBRnZNUXN3Q1FZRApWUVFMREFKdmRURW5NQ1VHQTFVRUF3d2VaV056TFd0MVltVXRZWEJwYzJWeWRtVnlMbVJsWm1GMWJIUXVjM1pqCk1JSUJJakFOQmdrcWhraUc5dzBCQVFFRkFBT0NBUThBTUlJQkNnS0NBUUVBczIrRlJ3K3IyZUx4KzFtOG1GVTMKK0g4bWMwZzhXd1VwQ1Z2dElhYVhjUmViUHNDaFZ3ck04cVBkcW1NbExBSFhtMElHVW9zVmxySnNtSmtvV0ZETQpNTVNGZzhXUW1HRnp1cnFiT2NWYUIxdC9hRHBhdHJuTVE5dUtuWWJqeUlNOXFUQ3cvOFFJSnA2MmJtWmNHNTYwCnl6dHIzN0dmQUhkTi9EenpTNjNDZXkxUTRqUjJTeUVWbXNCcCtXd1JDeDFtZEVJb213b1FTWXFKME9BOVdMdXEKYjhodUcwaWh6MUg5Nk15c2xXeitYTE5wZkU1eVRvTitNakZKV05tMEk0OG10TEpMdCsvUElmejgzMnF5RjFuSQpFdDBwOUNOeFB2TXZuOVJnMEdCSzdXSDlSdmx3VmpJNWh1VVdFZWxSc0ViRmxkNzIrYlY2czlpWXhqc3RBdklnCkR3SURBUUFCTUEwR0NTcUdTSWIzRFFFQkJRVUFBNElCQVFCTjR3OExVcWFtL3NKVEFwdFdwbjNaUXZCQlg5bHQKM3VoK2tPTUxlMHN6b2JBSG42QTVHdUpyM3R5a2xXcWlhUzd0cW5mTFgxbXFFMjFTdGxKcjFNcEFrYzd2SHdTawpLcHMzaFBLZ082ZWVnK2VpU2hjZ1NELzZGMm1SNFVMRXhtL2FYb1l3S3V1NEhFNHUwSnQvRzNEVUlMNlVKaWhDCitFa1R2dmRzeWZzVFlQK3ZXSmhvc2lzQjNCQ2dtVC9IME1IdVVXQlJXb2JISTVKVE1lSC8yc0ZScXNKMEk5S0kKcDRJWFZwT3Y5MTh6d2ZMS29aMDNrR2ZLT3JYekt0VW9YejdBanVOeEtLV0Q1OENBVzd6MW5ZcStYcDNnSzV0Mwp5dWVHd1FqcXdSbmFZbjlOMFRwK0xHRy9xUUFpREJYdG9walJkQXE1MmJjZzRCRjhKMnk5YmlFNAotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+  tls.key: LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tCk1JSUV2d0lCQURBTkJna3Foa2lHOXcwQkFRRUZBQVNDQktrd2dnU2xBZ0VBQW9JQkFRQ3piNFZIRDZ2WjR2SDcKV2J5WVZUZjRmeVp6U0R4YkJTa0pXKzBocHBkeEY1cyt3S0ZYQ3N6eW85MnFZeVVzQWRlYlFnWlNpeFdXc215WQptU2hZVU13d3hJV0R4WkNZWVhPNnVwczV4Vm9IVzM5b09scTJ1Y3hEMjRxZGh1UElnejJwTUxEL3hBZ21uclp1Clpsd2JuclRMTzJ2ZnNaOEFkMDM4UFBOTHJjSjdMVkRpTkhaTElSV2F3R241YkJFTEhXWjBRaWliQ2hCSmlvblEKNEQxWXU2cHZ5RzRiU0tIUFVmM296S3lWYlA1Y3MybDhUbkpPZzM0eU1VbFkyYlFqanlhMHNrdTM3ODhoL1B6ZgphcklYV2NnUzNTbjBJM0UrOHkrZjFHRFFZRXJ0WWYxRytYQldNam1HNVJZUjZWR3dSc1dWM3ZiNXRYcXoySmpHCk95MEM4aUFQQWdNQkFBRUNnZ0VBSlFMbHpNaVF1L3F4eXhTeGNBSno3dy9iRUlCZjRxNW56b1JsbjBGTGo0bzgKL1c2aVdOL2pjbEVXa2VTdGNDeFpHcTg5dXB6eHNRblFtSkZPM3hpYlpadkRwbkNENk1xQklvMEhJNTF2ZW9FSApBS3E0dDJRUG5CZVd1Zk51M0pjbGl0WitTK05WZ3hITnMydnRwOHpPb2ZUNXhVUlA5YnFtSFZjOUgra1JhbktQCnBNVmx1NFRKMGswakhhTXNOdlJlQnFJSFpkZHZYaDNzYmQ0RmdnUVVCN1plMm00bFdNdlp2eXg1ampadUtvdm0KWHI5QnBELy9tSUtLV0Z6VHMzN0JjZUNwWWtjSkVrUGxLWkg0d2F5Z29uZDVLako0RytwQjJkYzJJQzlXOWhhYQpEclM3ZjVIRTBSVjV3S1BLNDc5NjdWVHZjMjNIZ0k3MlhoRWtMcVF4RVFLQmdRRHJVYWJCeXVVUFE1OVo3SnNSCkxCU0JjZlJEbXg0bUdQb3pyNDZxNUFUR010ZWpKMmNxanJMZjBDTmpXbUM0WkExWDNtazlBRW5KWEZDWlVqeVAKTW11SmY1Zkx6VHlmZ05STlZjTzlMWWNZZ1ZoY2psZ0lwSldwMHlWaUNJRlVFYlpBWlFOMHM5aFlrRmRvdkZ1UQoyMFdabHhpeThod2grbjdoTURDbUNEYjFyUUtCZ1FERE5KS0JkeUp1K0RIM1Z6TENQdGs2alBjVlhuc1BubjNoCmVsRStPR0wvSWpGbHhiRVF0Sy9pMXZzb3JzSDBYbjZWMDkvNVc2MlIrdjQyMkdJMWZNYno5OUd0NFRrZ09qdXMKRURPN3hCeFpBSnIzYUdDRXN3UHA4TGlLWFBWd3lqZnpLOWRER1hIL2d5M3BoQng2RFRSbmp0RThHMWpBV0VSVwpmZXg4d2RYTUt3S0JnUURIaEUxTkZrZ3NMdnVXOU9OdEplQ2srQWRRb3Q1bkV0cGdwRUxrWmJ3ZWg5RUpSa2xVCmJmVC9pcXZXZXpSeVluSmx3KythaHZvSXZqcWdKSGV3T2VHdmpQMFpFUVNMZ0dHQXlHelRveHhlREp6c3JNdTcKV0VDRTRyOVpaVGl5SE9wWG9zM1JUd0xwNUVnWVIwdWpnQ1o4MlAxYUM2a0tyaWFScTVnenpkYzdhUUtCZ1FDRApOZzlVWHRRU2ExcUt1MTR2R3pmQkY0ZnVJVGZ1NDhZUmpicVdiQ2grL21qZDAraVZKaDhrQndXRDd4UUlRb3dzCkFlTUhKZ3lobDJqUlRObVd3bXlwQ09jMFRiT3NhZmc2VEJtNkdMUkZUeGJiUHBuQ0dPS0VtWDR4NHhKSDRtV0IKV3ZLeTg2T2c4SGdvQXRseFlQYmN0UzhIakFvNElCeXZWcTFqbnBjclNRS0JnUUNIUDdCaDFvVGlMSVhJR0UxZwpyY2VlSkthcGx0TnJROXczbDRrb2dGaFpvOUYyak5OVU1VZmtsQWg1Rzl3WTVzMUVsMFRRNlc5d3REcDhraDB6CitET0Nad1VCUWtKVitpc3dvNnZiZlhadXhiQ1ptY0UwYzZabW81OUY2YTJlQVJmK1B4anJHTEtUbU1FYjJRUlQKWVhwYVJ5UVRNdGxWQWdNQ3pjZ0taTk5NZ3c9PQotLS0tLUVORCBQUklWQVRFIEtFWS0tLS0tCg==

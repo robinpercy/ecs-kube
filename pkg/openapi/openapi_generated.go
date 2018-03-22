@@ -30,6 +30,248 @@ import (
 
 func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenAPIDefinition {
 	return map[string]common.OpenAPIDefinition{
+		"github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSContainer": {
+			Schema: spec.Schema{
+				SchemaProps: spec.SchemaProps{
+					Properties: map[string]spec.Schema{
+						"Command": {
+							SchemaProps: spec.SchemaProps{
+								Type: []string{"array"},
+								Items: &spec.SchemaOrArray{
+									Schema: &spec.Schema{
+										SchemaProps: spec.SchemaProps{
+											Type:   []string{"string"},
+											Format: "",
+										},
+									},
+								},
+							},
+						},
+						"Cpu": {
+							SchemaProps: spec.SchemaProps{
+								Type:   []string{"integer"},
+								Format: "int32",
+							},
+						},
+						"DisableNetworking": {
+							SchemaProps: spec.SchemaProps{
+								Type:   []string{"boolean"},
+								Format: "",
+							},
+						},
+						"DnsSearchDomains": {
+							SchemaProps: spec.SchemaProps{
+								Type: []string{"array"},
+								Items: &spec.SchemaOrArray{
+									Schema: &spec.Schema{
+										SchemaProps: spec.SchemaProps{
+											Type:   []string{"string"},
+											Format: "",
+										},
+									},
+								},
+							},
+						},
+						"DnsServers": {
+							SchemaProps: spec.SchemaProps{
+								Type: []string{"array"},
+								Items: &spec.SchemaOrArray{
+									Schema: &spec.Schema{
+										SchemaProps: spec.SchemaProps{
+											Type:   []string{"string"},
+											Format: "",
+										},
+									},
+								},
+							},
+						},
+						"DockerLabels": {
+							SchemaProps: spec.SchemaProps{
+								Type: []string{"object"},
+								AdditionalProperties: &spec.SchemaOrBool{
+									Schema: &spec.Schema{
+										SchemaProps: spec.SchemaProps{
+											Type:   []string{"string"},
+											Format: "",
+										},
+									},
+								},
+							},
+						},
+						"DockerSecurityOptions": {
+							SchemaProps: spec.SchemaProps{
+								Type:   []string{"string"},
+								Format: "",
+							},
+						},
+						"EntryPoint": {
+							SchemaProps: spec.SchemaProps{
+								Type:   []string{"string"},
+								Format: "",
+							},
+						},
+						"Environment": {
+							SchemaProps: spec.SchemaProps{
+								Type: []string{"array"},
+								Items: &spec.SchemaOrArray{
+									Schema: &spec.Schema{
+										SchemaProps: spec.SchemaProps{
+											Ref: ref("github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSKeyValuePair"),
+										},
+									},
+								},
+							},
+						},
+						"Essential": {
+							SchemaProps: spec.SchemaProps{
+								Type:   []string{"boolean"},
+								Format: "",
+							},
+						},
+						"ExtraHosts": {
+							SchemaProps: spec.SchemaProps{
+								Type: []string{"array"},
+								Items: &spec.SchemaOrArray{
+									Schema: &spec.Schema{
+										SchemaProps: spec.SchemaProps{
+											Ref: ref("github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSHostEntry"),
+										},
+									},
+								},
+							},
+						},
+						"Hostname": {
+							SchemaProps: spec.SchemaProps{
+								Type:   []string{"string"},
+								Format: "",
+							},
+						},
+						"Image": {
+							SchemaProps: spec.SchemaProps{
+								Type:   []string{"string"},
+								Format: "",
+							},
+						},
+						"Links": {
+							SchemaProps: spec.SchemaProps{
+								Type: []string{"array"},
+								Items: &spec.SchemaOrArray{
+									Schema: &spec.Schema{
+										SchemaProps: spec.SchemaProps{
+											Type:   []string{"string"},
+											Format: "",
+										},
+									},
+								},
+							},
+						},
+						"LinuxParameters": {
+							SchemaProps: spec.SchemaProps{
+								Ref: ref("github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSLinuxParameters"),
+							},
+						},
+						"LogConfiguration": {
+							SchemaProps: spec.SchemaProps{
+								Ref: ref("github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSLogConfiguration"),
+							},
+						},
+						"Memory": {
+							SchemaProps: spec.SchemaProps{
+								Type:   []string{"integer"},
+								Format: "int32",
+							},
+						},
+						"MemoryReservation": {
+							SchemaProps: spec.SchemaProps{
+								Type:   []string{"integer"},
+								Format: "int32",
+							},
+						},
+						"MountPoints": {
+							SchemaProps: spec.SchemaProps{
+								Type: []string{"array"},
+								Items: &spec.SchemaOrArray{
+									Schema: &spec.Schema{
+										SchemaProps: spec.SchemaProps{
+											Ref: ref("github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSMountPoint"),
+										},
+									},
+								},
+							},
+						},
+						"Name": {
+							SchemaProps: spec.SchemaProps{
+								Type:   []string{"string"},
+								Format: "",
+							},
+						},
+						"PortMappings": {
+							SchemaProps: spec.SchemaProps{
+								Type: []string{"array"},
+								Items: &spec.SchemaOrArray{
+									Schema: &spec.Schema{
+										SchemaProps: spec.SchemaProps{
+											Ref: ref("github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSPortMapping"),
+										},
+									},
+								},
+							},
+						},
+						"Privileged": {
+							SchemaProps: spec.SchemaProps{
+								Type:   []string{"boolean"},
+								Format: "",
+							},
+						},
+						"ReadonlyRootFilesystem": {
+							SchemaProps: spec.SchemaProps{
+								Type:   []string{"boolean"},
+								Format: "",
+							},
+						},
+						"Ulimits": {
+							SchemaProps: spec.SchemaProps{
+								Type: []string{"array"},
+								Items: &spec.SchemaOrArray{
+									Schema: &spec.Schema{
+										SchemaProps: spec.SchemaProps{
+											Ref: ref("github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSULimit"),
+										},
+									},
+								},
+							},
+						},
+						"User": {
+							SchemaProps: spec.SchemaProps{
+								Type:   []string{"string"},
+								Format: "",
+							},
+						},
+						"VolumesFrom": {
+							SchemaProps: spec.SchemaProps{
+								Type: []string{"array"},
+								Items: &spec.SchemaOrArray{
+									Schema: &spec.Schema{
+										SchemaProps: spec.SchemaProps{
+											Ref: ref("github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSVolumeFrom"),
+										},
+									},
+								},
+							},
+						},
+						"WorkingDirectory": {
+							SchemaProps: spec.SchemaProps{
+								Type:   []string{"string"},
+								Format: "",
+							},
+						},
+					},
+					Required: []string{"Image", "Name"},
+				},
+			},
+			Dependencies: []string{
+				"github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSHostEntry", "github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSKeyValuePair", "github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSLinuxParameters", "github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSLogConfiguration", "github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSMountPoint", "github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSPortMapping", "github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSULimit", "github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSVolumeFrom"},
+		},
 		"github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSDeployment": {
 			Schema: spec.Schema{
 				SchemaProps: spec.SchemaProps{
@@ -132,17 +374,37 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSDeploymentSpec": {
 			Schema: spec.Schema{
 				SchemaProps: spec.SchemaProps{
-					Description: "ECSDeploymentSpec defines the desired state of ECSDeployment",
-					Properties:  map[string]spec.Schema{},
+					Description: "ECSDeploymentSpec defines the desired state of ECSDeployment See: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-taskdefinition.html Note: JSON names are capitalized so that ECS configs can be copy-pasted into the spec",
+					Properties: map[string]spec.Schema{
+						"Task": {
+							SchemaProps: spec.SchemaProps{
+								Ref: ref("github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSTask"),
+							},
+						},
+						"Service": {
+							SchemaProps: spec.SchemaProps{
+								Ref: ref("github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSService"),
+							},
+						},
+					},
+					Required: []string{"Task", "Service"},
 				},
 			},
-			Dependencies: []string{},
+			Dependencies: []string{
+				"github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSService", "github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSTask"},
 		},
 		"github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSDeploymentStatus": {
 			Schema: spec.Schema{
 				SchemaProps: spec.SchemaProps{
 					Description: "ECSDeploymentStatus defines the observed state of ECSDeployment",
-					Properties:  map[string]spec.Schema{},
+					Properties: map[string]spec.Schema{
+						"state": {
+							SchemaProps: spec.SchemaProps{
+								Type:   []string{"string"},
+								Format: "",
+							},
+						},
+					},
 				},
 			},
 			Dependencies: []string{},
@@ -178,6 +440,571 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 			},
 			Dependencies: []string{
 				"github.com/kubernetes-incubator/apiserver-builder/pkg/builders.DefaultStorageStrategy"},
+		},
+		"github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSDevice": {
+			Schema: spec.Schema{
+				SchemaProps: spec.SchemaProps{
+					Properties: map[string]spec.Schema{
+						"ContainerPath": {
+							SchemaProps: spec.SchemaProps{
+								Type:   []string{"string"},
+								Format: "",
+							},
+						},
+						"HostPath": {
+							SchemaProps: spec.SchemaProps{
+								Type:   []string{"string"},
+								Format: "",
+							},
+						},
+						"Permissions": {
+							SchemaProps: spec.SchemaProps{
+								Type: []string{"array"},
+								Items: &spec.SchemaOrArray{
+									Schema: &spec.Schema{
+										SchemaProps: spec.SchemaProps{
+											Type:   []string{"string"},
+											Format: "",
+										},
+									},
+								},
+							},
+						},
+					},
+					Required: []string{"HostPath"},
+				},
+			},
+			Dependencies: []string{},
+		},
+		"github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSHostEntry": {
+			Schema: spec.Schema{
+				SchemaProps: spec.SchemaProps{
+					Properties: map[string]spec.Schema{
+						"Hostname": {
+							SchemaProps: spec.SchemaProps{
+								Type:   []string{"string"},
+								Format: "",
+							},
+						},
+						"IpAddress": {
+							SchemaProps: spec.SchemaProps{
+								Type:   []string{"string"},
+								Format: "",
+							},
+						},
+					},
+					Required: []string{"Hostname", "IpAddress"},
+				},
+			},
+			Dependencies: []string{},
+		},
+		"github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSKernelCapabilities": {
+			Schema: spec.Schema{
+				SchemaProps: spec.SchemaProps{
+					Properties: map[string]spec.Schema{
+						"Add": {
+							SchemaProps: spec.SchemaProps{
+								Type: []string{"array"},
+								Items: &spec.SchemaOrArray{
+									Schema: &spec.Schema{
+										SchemaProps: spec.SchemaProps{
+											Type:   []string{"string"},
+											Format: "",
+										},
+									},
+								},
+							},
+						},
+						"Drop": {
+							SchemaProps: spec.SchemaProps{
+								Type: []string{"array"},
+								Items: &spec.SchemaOrArray{
+									Schema: &spec.Schema{
+										SchemaProps: spec.SchemaProps{
+											Type:   []string{"string"},
+											Format: "",
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+			Dependencies: []string{},
+		},
+		"github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSKeyValuePair": {
+			Schema: spec.Schema{
+				SchemaProps: spec.SchemaProps{
+					Properties: map[string]spec.Schema{
+						"Name": {
+							SchemaProps: spec.SchemaProps{
+								Type:   []string{"string"},
+								Format: "",
+							},
+						},
+						"Value": {
+							SchemaProps: spec.SchemaProps{
+								Type:   []string{"string"},
+								Format: "",
+							},
+						},
+					},
+					Required: []string{"Name", "Value"},
+				},
+			},
+			Dependencies: []string{},
+		},
+		"github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSLinuxParameters": {
+			Schema: spec.Schema{
+				SchemaProps: spec.SchemaProps{
+					Properties: map[string]spec.Schema{
+						"Capabilities": {
+							SchemaProps: spec.SchemaProps{
+								Type: []string{"array"},
+								Items: &spec.SchemaOrArray{
+									Schema: &spec.Schema{
+										SchemaProps: spec.SchemaProps{
+											Ref: ref("github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSKernelCapabilities"),
+										},
+									},
+								},
+							},
+						},
+						"Devices": {
+							SchemaProps: spec.SchemaProps{
+								Type: []string{"array"},
+								Items: &spec.SchemaOrArray{
+									Schema: &spec.Schema{
+										SchemaProps: spec.SchemaProps{
+											Ref: ref("github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSDevice"),
+										},
+									},
+								},
+							},
+						},
+						"InitProcessEnabled": {
+							SchemaProps: spec.SchemaProps{
+								Type:   []string{"boolean"},
+								Format: "",
+							},
+						},
+					},
+				},
+			},
+			Dependencies: []string{
+				"github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSDevice", "github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSKernelCapabilities"},
+		},
+		"github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSLoadBalancer": {
+			Schema: spec.Schema{
+				SchemaProps: spec.SchemaProps{
+					Properties: map[string]spec.Schema{
+						"ContainerName": {
+							SchemaProps: spec.SchemaProps{
+								Type:   []string{"string"},
+								Format: "",
+							},
+						},
+						"ContainerPort": {
+							SchemaProps: spec.SchemaProps{
+								Type:   []string{"integer"},
+								Format: "int32",
+							},
+						},
+						"LoadBalancerName": {
+							SchemaProps: spec.SchemaProps{
+								Type:   []string{"string"},
+								Format: "",
+							},
+						},
+						"TargetGroupArn": {
+							SchemaProps: spec.SchemaProps{
+								Type:   []string{"string"},
+								Format: "",
+							},
+						},
+					},
+					Required: []string{"ContainerName", "ContainerPort"},
+				},
+			},
+			Dependencies: []string{},
+		},
+		"github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSLogConfiguration": {
+			Schema: spec.Schema{
+				SchemaProps: spec.SchemaProps{
+					Properties: map[string]spec.Schema{
+						"LogDriver": {
+							SchemaProps: spec.SchemaProps{
+								Type:   []string{"string"},
+								Format: "",
+							},
+						},
+						"Options": {
+							SchemaProps: spec.SchemaProps{
+								Type: []string{"object"},
+								AdditionalProperties: &spec.SchemaOrBool{
+									Schema: &spec.Schema{
+										SchemaProps: spec.SchemaProps{
+											Type:   []string{"string"},
+											Format: "",
+										},
+									},
+								},
+							},
+						},
+					},
+					Required: []string{"LogDriver"},
+				},
+			},
+			Dependencies: []string{},
+		},
+		"github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSMountPoint": {
+			Schema: spec.Schema{
+				SchemaProps: spec.SchemaProps{
+					Properties: map[string]spec.Schema{
+						"ContainerPath": {
+							SchemaProps: spec.SchemaProps{
+								Type:   []string{"string"},
+								Format: "",
+							},
+						},
+						"SourceVolume": {
+							SchemaProps: spec.SchemaProps{
+								Type:   []string{"string"},
+								Format: "",
+							},
+						},
+						"ReadOnly": {
+							SchemaProps: spec.SchemaProps{
+								Type:   []string{"boolean"},
+								Format: "",
+							},
+						},
+					},
+					Required: []string{"ContainerPath", "SourceVolume"},
+				},
+			},
+			Dependencies: []string{},
+		},
+		"github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSPlacement": {
+			Schema: spec.Schema{
+				SchemaProps: spec.SchemaProps{
+					Properties: map[string]spec.Schema{
+						"Type": {
+							SchemaProps: spec.SchemaProps{
+								Type:   []string{"string"},
+								Format: "",
+							},
+						},
+						"Expression": {
+							SchemaProps: spec.SchemaProps{
+								Type:   []string{"string"},
+								Format: "",
+							},
+						},
+					},
+					Required: []string{"Type"},
+				},
+			},
+			Dependencies: []string{},
+		},
+		"github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSPortMapping": {
+			Schema: spec.Schema{
+				SchemaProps: spec.SchemaProps{
+					Properties: map[string]spec.Schema{
+						"ContainerPort": {
+							SchemaProps: spec.SchemaProps{
+								Type:   []string{"integer"},
+								Format: "int32",
+							},
+						},
+						"HostPort": {
+							SchemaProps: spec.SchemaProps{
+								Type:   []string{"integer"},
+								Format: "int32",
+							},
+						},
+						"Protocol": {
+							SchemaProps: spec.SchemaProps{
+								Type:   []string{"string"},
+								Format: "",
+							},
+						},
+					},
+					Required: []string{"ContainerPort"},
+				},
+			},
+			Dependencies: []string{},
+		},
+		"github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSService": {
+			Schema: spec.Schema{
+				SchemaProps: spec.SchemaProps{
+					Properties: map[string]spec.Schema{
+						"Cluster": {
+							SchemaProps: spec.SchemaProps{
+								Type:   []string{"string"},
+								Format: "",
+							},
+						},
+						"DesiredCount": {
+							SchemaProps: spec.SchemaProps{
+								Description: "DeploymentConfiguration // TODO: Handle",
+								Type:        []string{"integer"},
+								Format:      "int32",
+							},
+						},
+						"HealthCheckGracePeriodSeconds": {
+							SchemaProps: spec.SchemaProps{
+								Type:   []string{"integer"},
+								Format: "int32",
+							},
+						},
+						"LaunchType": {
+							SchemaProps: spec.SchemaProps{
+								Type:   []string{"string"},
+								Format: "",
+							},
+						},
+						"LoadBalancers": {
+							SchemaProps: spec.SchemaProps{
+								Type: []string{"array"},
+								Items: &spec.SchemaOrArray{
+									Schema: &spec.Schema{
+										SchemaProps: spec.SchemaProps{
+											Ref: ref("github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSLoadBalancer"),
+										},
+									},
+								},
+							},
+						},
+						"PlacementConstraints": {
+							SchemaProps: spec.SchemaProps{
+								Description: "NetworkConfiguration // TODO: Handle",
+								Ref:         ref("github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSPlacement"),
+							},
+						},
+						"PlatformVersion": {
+							SchemaProps: spec.SchemaProps{
+								Description: "PlacementStrategies // TODO: Handle",
+								Type:        []string{"string"},
+								Format:      "",
+							},
+						},
+						"Role": {
+							SchemaProps: spec.SchemaProps{
+								Type:   []string{"string"},
+								Format: "",
+							},
+						},
+						"ServiceName": {
+							SchemaProps: spec.SchemaProps{
+								Type:   []string{"string"},
+								Format: "",
+							},
+						},
+						"TaskDefinition": {
+							SchemaProps: spec.SchemaProps{
+								Type:   []string{"string"},
+								Format: "",
+							},
+						},
+					},
+					Required: []string{"DesiredCount"},
+				},
+			},
+			Dependencies: []string{
+				"github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSLoadBalancer", "github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSPlacement"},
+		},
+		"github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSTask": {
+			Schema: spec.Schema{
+				SchemaProps: spec.SchemaProps{
+					Properties: map[string]spec.Schema{
+						"Type": {
+							SchemaProps: spec.SchemaProps{
+								Type:   []string{"string"},
+								Format: "",
+							},
+						},
+						"Properties": {
+							SchemaProps: spec.SchemaProps{
+								Ref: ref("github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSTaskProperties"),
+							},
+						},
+					},
+					Required: []string{"Type", "Properties"},
+				},
+			},
+			Dependencies: []string{
+				"github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSTaskProperties"},
+		},
+		"github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSTaskProperties": {
+			Schema: spec.Schema{
+				SchemaProps: spec.SchemaProps{
+					Properties: map[string]spec.Schema{
+						"Volumes": {
+							SchemaProps: spec.SchemaProps{
+								Ref: ref("github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSVolumeHost"),
+							},
+						},
+						"Cpu": {
+							SchemaProps: spec.SchemaProps{
+								Type:   []string{"string"},
+								Format: "",
+							},
+						},
+						"ExecutionRoleArn": {
+							SchemaProps: spec.SchemaProps{
+								Type:   []string{"string"},
+								Format: "",
+							},
+						},
+						"Family": {
+							SchemaProps: spec.SchemaProps{
+								Type:   []string{"string"},
+								Format: "",
+							},
+						},
+						"Memory": {
+							SchemaProps: spec.SchemaProps{
+								Type:   []string{"string"},
+								Format: "",
+							},
+						},
+						"NetworkMode": {
+							SchemaProps: spec.SchemaProps{
+								Type:   []string{"string"},
+								Format: "",
+							},
+						},
+						"PlacementConstraints": {
+							SchemaProps: spec.SchemaProps{
+								Ref: ref("github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSPlacement"),
+							},
+						},
+						"RequiresCompatibilities": {
+							SchemaProps: spec.SchemaProps{
+								Type: []string{"array"},
+								Items: &spec.SchemaOrArray{
+									Schema: &spec.Schema{
+										SchemaProps: spec.SchemaProps{
+											Type:   []string{"string"},
+											Format: "",
+										},
+									},
+								},
+							},
+						},
+						"TaskRoleArn": {
+							SchemaProps: spec.SchemaProps{
+								Type:   []string{"string"},
+								Format: "",
+							},
+						},
+						"ContainerDefinitions": {
+							SchemaProps: spec.SchemaProps{
+								Type: []string{"array"},
+								Items: &spec.SchemaOrArray{
+									Schema: &spec.Schema{
+										SchemaProps: spec.SchemaProps{
+											Ref: ref("github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSContainer"),
+										},
+									},
+								},
+							},
+						},
+					},
+					Required: []string{"ContainerDefinitions"},
+				},
+			},
+			Dependencies: []string{
+				"github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSContainer", "github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSPlacement", "github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSVolumeHost"},
+		},
+		"github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSULimit": {
+			Schema: spec.Schema{
+				SchemaProps: spec.SchemaProps{
+					Properties: map[string]spec.Schema{
+						"HardLimit": {
+							SchemaProps: spec.SchemaProps{
+								Type:   []string{"integer"},
+								Format: "int32",
+							},
+						},
+						"Name": {
+							SchemaProps: spec.SchemaProps{
+								Type:   []string{"string"},
+								Format: "",
+							},
+						},
+						"SoftLimit": {
+							SchemaProps: spec.SchemaProps{
+								Type:   []string{"integer"},
+								Format: "int32",
+							},
+						},
+					},
+					Required: []string{"HardLimit", "SoftLimit"},
+				},
+			},
+			Dependencies: []string{},
+		},
+		"github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSVolume": {
+			Schema: spec.Schema{
+				SchemaProps: spec.SchemaProps{
+					Properties: map[string]spec.Schema{
+						"Name": {
+							SchemaProps: spec.SchemaProps{
+								Type:   []string{"string"},
+								Format: "",
+							},
+						},
+						"Host": {
+							SchemaProps: spec.SchemaProps{
+								Ref: ref("github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSVolumeHost"),
+							},
+						},
+					},
+					Required: []string{"Name"},
+				},
+			},
+			Dependencies: []string{
+				"github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSVolumeHost"},
+		},
+		"github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSVolumeFrom": {
+			Schema: spec.Schema{
+				SchemaProps: spec.SchemaProps{
+					Properties: map[string]spec.Schema{
+						"SourceContainer": {
+							SchemaProps: spec.SchemaProps{
+								Type:   []string{"string"},
+								Format: "",
+							},
+						},
+						"ReadOnly": {
+							SchemaProps: spec.SchemaProps{
+								Type:   []string{"boolean"},
+								Format: "",
+							},
+						},
+					},
+					Required: []string{"SourceContainer"},
+				},
+			},
+			Dependencies: []string{},
+		},
+		"github.com/robinpercy/ecs-kube/pkg/apis/ecskube/v1alpha1.ECSVolumeHost": {
+			Schema: spec.Schema{
+				SchemaProps: spec.SchemaProps{
+					Properties: map[string]spec.Schema{
+						"SourcePath": {
+							SchemaProps: spec.SchemaProps{
+								Type:   []string{"string"},
+								Format: "",
+							},
+						},
+					},
+				},
+			},
+			Dependencies: []string{},
 		},
 		"k8s.io/api/admissionregistration/v1alpha1.Initializer": {
 			Schema: spec.Schema{

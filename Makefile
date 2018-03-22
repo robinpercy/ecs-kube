@@ -1,7 +1,7 @@
 SHELL = sh -xv
 
 REPO?=robinpercy
-IMG?=kube-ecs
+IMG?=ecs-kube
 TAG?=latest
 FULL_IMG="$(REPO)/$(IMG):$(TAG)"
 NS_DEMO?="default"

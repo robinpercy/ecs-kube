@@ -79,9 +79,144 @@ type ECSDeployment struct {
 }
 
 type ECSDeploymentSpec struct {
+	Task    ECSTask
+	Service ECSService
 }
 
 type ECSDeploymentStatus struct {
+	State string
+}
+
+type ECSService struct {
+	Cluster                       string
+	DesiredCount                  int32
+	HealthCheckGracePeriodSeconds int
+	LaunchType                    string
+	LoadBalancers                 []ECSLoadBalancer
+	PlacementConstraints          ECSPlacement
+	PlatformVersion               string
+	Role                          string
+	ServiceName                   string
+	TaskDefinition                string
+}
+
+type ECSTask struct {
+	Type       string
+	Properties ECSTaskProperties
+}
+
+type ECSPlacement struct {
+	Type       string
+	Expression string
+}
+
+type ECSTaskProperties struct {
+	Volumes                 ECSVolumeHost
+	CPU                     string
+	ExecutionRoleARN        string
+	Family                  string
+	Memory                  string
+	NetworkMode             string
+	PlacementConstraints    ECSPlacement
+	RequiresCompatibilities []string
+	TaskRoleARN             string
+	ContainerDefinitions    []ECSContainer
+}
+
+type ECSLoadBalancer struct {
+	ContainerName    string
+	ContainerPort    int32
+	LoadBalancerName string
+	TargetGroupArn   string
+}
+
+type ECSContainer struct {
+	Command                []string
+	CPU                    int
+	DisableNetworking      bool
+	DNSSearchDomains       []string
+	DNSServers             []string
+	DockerLabels           map[string]string
+	DockerSecurityOptions  string
+	EntryPoint             string
+	Environment            []ECSKeyValuePair
+	Essential              bool
+	ExtraHosts             []ECSHostEntry
+	Hostname               string
+	Image                  string
+	Links                  []string
+	LinuxParameters        ECSLinuxParameters
+	LogConfiguration       ECSLogConfiguration
+	Memory                 int
+	MemoryReservation      int
+	MountPoints            []ECSMountPoint
+	Name                   string
+	PortMappings           []ECSPortMapping
+	Privileged             bool
+	ReadonlyRootFilesystem bool
+	Ulimits                []ECSULimit
+	User                   string
+	VolumesFrom            []ECSVolumeFrom
+	WorkingDirectory       string
+}
+
+type ECSVolumeFrom struct {
+	SourceContainer string
+	ReadOnly        bool
+}
+
+type ECSULimit struct {
+	HardLimit int
+	Name      string
+	SoftLimit int
+}
+
+type ECSPortMapping struct {
+	ContainerPort int32
+	HostPort      int32
+	Protocol      string
+}
+
+type ECSMountPoint struct {
+	ContainerPath string
+	SourceVolume  string
+	ReadOnly      bool
+}
+
+type ECSLogConfiguration struct {
+	LogDriver string
+	Options   map[string]string
+}
+
+type ECSLinuxParameters struct {
+	Capabilities       []ECSKernelCapabilities
+	Devices            []ECSDevice
+	InitProcessEnabled bool
+}
+
+type ECSHostEntry struct {
+	Hostname  string
+	IPAddress string
+}
+
+type ECSDevice struct {
+	ContainerPath string
+	HostPath      string
+	Permissions   []string
+}
+
+type ECSKernelCapabilities struct {
+	Add  []string
+	Drop []string
+}
+
+type ECSKeyValuePair struct {
+	Name  string
+	Value string
+}
+
+type ECSVolumeHost struct {
+	SourcePath string
 }
 
 //

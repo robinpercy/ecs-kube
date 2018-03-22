@@ -1,0 +1,44 @@
+apiVersion: ecskube.ecskube/v1alpha1
+kind: ECSDeployment
+metadata:
+  name: ecs-demo-deploy
+  labels:
+    demo: "true"
+spec:
+  
+  # The body of the Service must be a valid ECS Service definition
+  Service:
+    DesiredCount: 1 
+    HealthCheckGracePeriodSeconds: 10
+    TaskDefinition: Ignored/implied for now
+    LoadBalancers: 
+      - containerName: "wordpress"
+        containerPort: 80
+
+  # The body of Task must be a valid ECS Task definition
+  Task:
+    # This is based on https://docs.aws.amazon.com/AmazonECS/latest/developerguide/example_task_definitions.html
+    Type: Ignored for now
+    Properties:
+      ContainerDefinitions:
+        - Name: wordpress
+          Image: wordpress
+          PortMappings: 
+            - containerPort: 80
+              hostPort: 80
+          Environment:
+            - Name: WORDPRESS_DB_HOST
+              Value: 127.0.0.1
+            - Name: WORDPRESS_DB_PASSWORD
+              Value: password
+          Memory: 500
+          Cpu: 100
+        - Name: mysql
+          Image: mysql
+          Environment:
+            - Name: MYSQL_ROOT_PASSWORD
+              Value: password
+          Cpu: 100
+          Memory: 500
+          Essential: true
+

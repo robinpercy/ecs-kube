@@ -1,0 +1,66 @@
+{
+    "apiVersion": "ecskube.ecskube/v1alpha1",
+    "kind": "ECSDeployment",
+    "metadata": {
+        "labels": {
+            "demo": "true"
+        },
+        "name": "ecs-demo-deploy",
+        "namespace": "default"
+    },
+    "spec": {
+        "Service": {
+            "DesiredCount": 1,
+            "HealthCheckGracePeriodSeconds": 10,
+            "LoadBalancers": [
+                {
+                    "ContainerName": "wordpress",
+                    "ContainerPort": 80
+                }
+            ],
+            "TaskDefinition": "Ignored/implied for now"
+        },
+        "Task": {
+            "Properties": {
+                "ContainerDefinitions": [
+                    {
+                        "Cpu": 100,
+                        "Environment": [
+                            {
+                                "Name": "WORDPRESS_DB_HOST",
+                                "Value": "127.0.0.1"
+                            },
+                            {
+                                "Name": "WORDPRESS_DB_PASSWORD",
+                                "Value": "password"
+                            }
+                        ],
+                        "Image": "wordpress",
+                        "Memory": 500,
+                        "Name": "wordpress",
+                        "PortMappings": [
+                            {
+                                "ContainerPort": 80,
+                                "HostPort": 80
+                            }
+                        ]
+                    },
+                    {
+                        "Cpu": 100,
+                        "Environment": [
+                            {
+                                "Name": "MYSQL_ROOT_PASSWORD",
+                                "Value": "password"
+                            }
+                        ],
+                        "Essential": true,
+                        "Image": "mysql",
+                        "Memory": 500,
+                        "Name": "mysql"
+                    }
+                ]
+            },
+            "Type": "Ignored for now"
+        }
+    }
+}
