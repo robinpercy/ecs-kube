@@ -13,6 +13,12 @@ An alternative design would be to reference one or more configmaps from the ECSD
 # Installation
 The apiserver.yaml is currently the default generated using `make create-agg-config`
 ```
+// Ensure you have a storage class named 'standard' installed, if not, a sample storage class for aws has been provided
+$ kubectl get storageclass
+
+// if necessary: 
+//$ kubectl create -f standard_sc.yaml
+
 // Install the API Server and a backing etcd datastore
 $ kubectl create -f config/apiserver.yaml
 ```
